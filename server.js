@@ -11,6 +11,13 @@ const server = http.createServer(app);
 const io = new Server(server);
 app.use(express.json({ limit: '1mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
+// Vercel khởi tạo hàm theo yêu cầu; tái sử dụng kết nối Mongoose giữa các yêu cầu.
+let vercelConnection;
+if (process.env.VERCEL) app.use(async (req, res, next) => {
+  if (!process.env.MONGODB_URI) return res.status(503).json({ error: 'Thiếu MONGODB_URI trên Vercel' });
+  if (!vercelConnection) vercelConnection = mongoose.connect(process.env.MONGODB_URI, { serverSelectionTimeoutMS: 12000 }).catch(error => { vercelConnection = null; throw error; });
+  try { await vercelConnection; next(); } catch (error) { next(error); }
+});
 
 const { Schema, model, Types } = mongoose;
 const productSchema = new Schema({ sku: { type: String, required: true, unique: true, trim: true, uppercase: true }, name: { type: String, required: true, trim: true }, unit: { type: String, default: 'cái' }, cost: { type: Number, default: 0, min: 0 }, price: { type: Number, default: 0, min: 0 }, stock: { type: Number, default: 0, min: 0 }, minStock: { type: Number, default: 5, min: 0 }, active: { type: Boolean, default: true } }, { timestamps: true });
@@ -87,106 +94,3 @@ app.post('/api/bundle-sales', asyncRoute(async (req, res) => {
       if (i.extra) { const p=byProduct.get(String(i.extra.product)); if(!p)throw fail(409, 'Món thêm không còn trong kho'); extraName=p.name; required.set(String(p._id),(required.get(String(p._id))||0)+Number(i.extra.quantity)*qty); ingredients.push({product:p._id,sku:p.sku,name:p.name,unit:p.unit,quantityPerSet:Number(i.extra.quantity),unitCost:p.cost}); }
       const unitCost = b.packagingCost + ingredients.reduce((sum, p) => sum + p.unitCost * p.quantityPerSet, 0);
       total += (b.sellingPrice + Number(i.extra?.extraPrice || 0)) * qty; costTotal += unitCost * qty;
-      return { bundle: b._id, name: b.name + (extraName ? ` + ${extraName}` : ''), quantity: qty, unitPrice: b.sellingPrice + Number(i.extra?.extraPrice || 0), unitCost, ingredients, extraName };
-    });
-    if (![total,costTotal,...required.values()].every(Number.isSafeInteger)) throw fail(400, 'Số lượng hoặc tổng tiền quá lớn');
-    for (const [id, needed] of required) {
-      const p = byProduct.get(id);
-      if (p.stock < needed) throw fail(409, `Thiếu ${p.name}: cần ${needed}, hiện có ${p.stock} ${p.unit}`);
-    }
-    const code = `SET-${Date.now()}-${Math.random().toString(36).slice(2,7).toUpperCase()}`;
-    sold = (await BundleSale.create([{ code, customerName, paymentMethod, items: soldItems, total, costTotal }], { session }))[0];
-    for (const [id, needed] of required) {
-      const before = await Product.findOneAndUpdate({ _id: id, active: true, stock: { $gte: needed } }, { $inc: { stock: -needed } }, { new: false, session });
-      if (!before) throw fail(409, 'Tồn kho đã thay đổi. Hãy kiểm tra lại giỏ hàng');
-      await Movement.create([{ product: before._id, sku: before.sku, name: before.name, type: 'sale', quantity: -needed, before: before.stock, after: before.stock - needed, bundleSale: sold._id, note: code }], { session });
-    }
-  }); } finally { await session.endSession(); }
-  changed(); res.status(201).json(sold);
-}));
-
-app.get('/api/orders', asyncRoute(async (req, res) => { const filter = ['purchase','sale'].includes(req.query.type) ? { type: req.query.type } : {}; res.json(await Order.find(filter).sort({ createdAt: -1 }).limit(300).lean()); }));
-app.get('/api/orders/:id', asyncRoute(async (req, res) => { if (!validId(req.params.id)) throw fail(400, 'ID không hợp lệ'); const doc = await Order.findById(req.params.id).lean(); if (!doc) throw fail(404, 'Không tìm thấy đơn'); res.json(doc); }));
-app.post('/api/orders', asyncRoute(async (req, res) => {
-  const { type, partner: partnerId, lines, note } = req.body;
-  if (!['purchase','sale'].includes(type) || !validId(partnerId) || !Array.isArray(lines) || !lines.length || lines.length > 100) throw fail(400, 'Đơn hàng không hợp lệ');
-  const partner = await Partner.findById(partnerId).lean(); if (!partner || partner.type !== (type === 'purchase' ? 'supplier' : 'customer')) throw fail(400, 'Chọn đúng nhà cung cấp hoặc khách hàng');
-  const ids = lines.map(l => l.product); if (ids.some(id => !validId(id)) || new Set(ids.map(String)).size !== ids.length) throw fail(400, 'Sản phẩm trùng hoặc không hợp lệ');
-  const products = await Product.find({ _id: { $in: ids }, active: true }).lean(); const byId = new Map(products.map(p => [String(p._id), p]));
-  const savedLines = lines.map(l => { const p = byId.get(String(l.product)); if (!p || !whole(l.quantity, 1) || !whole(l.unitPrice)) throw fail(400, 'Dòng sản phẩm không hợp lệ'); return { product: p._id, sku: p.sku, name: p.name, quantity: Number(l.quantity), unitPrice: Number(l.unitPrice), unitCost: p.cost }; });
-  const total = savedLines.reduce((s, l) => s + l.quantity * l.unitPrice, 0); if (!Number.isSafeInteger(total)) throw fail(400, 'Tổng tiền quá lớn');
-  const code = `${type === 'purchase' ? 'NH' : 'BH'}-${Date.now()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
-  const doc = await Order.create({ type, code, partner: partner._id, partnerName: partner.name, lines: savedLines, total, note: txt(note, 500) }); changed(); res.status(201).json(doc);
-}));
-app.post('/api/orders/:id/confirm', asyncRoute(async (req, res) => {
-  if (!validId(req.params.id)) throw fail(400, 'ID không hợp lệ');
-  const session = await mongoose.startSession(); let doc;
-  try { await session.withTransaction(async () => {
-    doc = await Order.findOneAndUpdate({ _id: req.params.id, status: 'draft' }, { $set: { status: 'confirmed', confirmedAt: new Date() } }, { new: true, session });
-    if (!doc) throw fail(409, 'Đơn không tồn tại hoặc đã xử lý');
-    for (const line of doc.lines) {
-      const filter = { _id: line.product, active: true, ...(doc.type === 'sale' ? { stock: { $gte: line.quantity } } : {}) };
-      const update = { $inc: { stock: doc.type === 'purchase' ? line.quantity : -line.quantity } };
-      if (doc.type === 'purchase') update.$set = { cost: line.unitPrice };
-      const before = await Product.findOneAndUpdate(filter, update, { new: false, session });
-      if (!before) throw fail(409, `Không đủ tồn kho hoặc sản phẩm đã ẩn: ${line.name}`);
-      const delta = doc.type === 'purchase' ? line.quantity : -line.quantity;
-      await Movement.create([{ product: line.product, sku: line.sku, name: line.name, type: doc.type, quantity: delta, before: before.stock, after: before.stock + delta, order: doc._id, note: doc.code }], { session });
-    }
-  }); } finally { await session.endSession(); }
-  changed(); res.json(doc);
-}));
-app.post('/api/orders/:id/cancel', asyncRoute(async (req, res) => { if (!validId(req.params.id)) throw fail(400, 'ID không hợp lệ'); const doc = await Order.findOneAndUpdate({ _id: req.params.id, status: 'draft' }, { $set: { status: 'cancelled' } }, { new: true }); if (!doc) throw fail(409, 'Chỉ hủy được đơn nháp'); changed(); res.json(doc); }));
-app.patch('/api/orders/:id/payment', asyncRoute(async (req, res) => { if (!validId(req.params.id) || !whole(req.body.paid)) throw fail(400, 'Số tiền không hợp lệ'); const doc = await Order.findOneAndUpdate({ _id: req.params.id, status: 'confirmed', total: { $gte: Number(req.body.paid) } }, { $set: { paid: Number(req.body.paid) } }, { new: true }); if (!doc) throw fail(409, 'Chỉ cập nhật được đơn đã xác nhận; tiền đã trả không vượt tổng tiền'); changed(); res.json(doc); }));
-
-app.get('/api/inventory', asyncRoute(async (req, res) => res.json(await Product.find({ active: true }).select('sku name unit stock minStock cost price').sort({ name: 1 }).lean())));
-app.get('/api/movements', asyncRoute(async (req, res) => res.json(await Movement.find().sort({ createdAt: -1 }).limit(150).lean())));
-app.post('/api/inventory/adjust', asyncRoute(async (req, res) => {
-  const { product: id, stock, note } = req.body; if (!validId(id) || !whole(stock) || !txt(note)) throw fail(400, 'Cần chọn sản phẩm, số tồn nguyên không âm và lý do');
-  const session = await mongoose.startSession(); let movement;
-  try { await session.withTransaction(async () => { const before = await Product.findOneAndUpdate({ _id: id, active: true }, { $set: { stock: Number(stock) } }, { new: false, session }); if (!before) throw fail(404, 'Không tìm thấy sản phẩm'); movement = (await Movement.create([{ product: before._id, sku: before.sku, name: before.name, type: 'adjustment', quantity: Number(stock) - before.stock, before: before.stock, after: Number(stock), note: txt(note, 300) }], { session }))[0]; }); } finally { await session.endSession(); }
-  changed(); res.status(201).json(movement);
-}));
-
-app.get('/api/dashboard', asyncRoute(async (req, res) => {
-  const [products, sales, bundleSales, purchases, low] = await Promise.all([
-    Product.countDocuments({ active: true }),
-    Order.find({ type: 'sale', status: 'confirmed' }).select('total paid').lean(),
-    BundleSale.find().select('total').lean(),
-    Order.countDocuments({ type: 'purchase', status: 'confirmed' }),
-    Product.find({ active: true, $expr: { $lte: ['$stock', '$minStock'] } }).sort({ stock: 1 }).limit(8).lean()
-  ]);
-  res.json({ products, sales: sales.length + bundleSales.length, purchases,
-    revenue: sales.reduce((sum,o)=>sum+o.total,0) + bundleSales.reduce((sum,o)=>sum+o.total,0),
-    receivables: sales.reduce((sum,o)=>sum+o.total-o.paid,0), low });
-}));
-app.get('/api/reports', asyncRoute(async (req, res) => {
-  const from = req.query.from ? dateBound(req.query.from) : new Date(Date.now()-30*86400000);
-  const to = req.query.to ? dateBound(req.query.to,true) : new Date(Date.now()+86400000);
-  if (from >= to) throw fail(400, 'Khoảng ngày không hợp lệ');
-  const [orders, bundleSales] = await Promise.all([
-    Order.find({ status:'confirmed', confirmedAt:{ $gte:from, $lt:to } }).lean(),
-    BundleSale.find({ createdAt:{ $gte:from, $lt:to } }).lean()
-  ]);
-  const sales=orders.filter(o=>o.type==='sale'), purchases=orders.filter(o=>o.type==='purchase');
-  const map=new Map();
-  for (const order of sales) for (const l of order.lines) {
-    const key=String(l.product), row=map.get(key)||{sku:l.sku,name:l.name,quantity:0,revenue:0};
-    row.quantity+=l.quantity; row.revenue+=l.quantity*l.unitPrice; map.set(key,row);
-  }
-  for (const order of bundleSales) for (const l of order.items) {
-    const key='set:'+String(l.bundle),row=map.get(key)||{sku:'SET',name:l.name,quantity:0,revenue:0};
-    row.quantity+=l.quantity;row.revenue+=l.quantity*l.unitPrice;map.set(key,row);
-  }
-  res.json({ sales:sales.length+bundleSales.length, purchases:purchases.length,
-    revenue:sales.reduce((sum,o)=>sum+o.total,0)+bundleSales.reduce((sum,o)=>sum+o.total,0),
-    purchaseValue:purchases.reduce((sum,o)=>sum+o.total,0),
-    estimatedGrossProfit:sales.reduce((sum,o)=>sum+o.lines.reduce((a,l)=>a+l.quantity*(l.unitPrice-l.unitCost),0),0)+bundleSales.reduce((sum,o)=>sum+o.total-o.costTotal,0),
-    top:[...map.values()].sort((a,b)=>b.quantity-a.quantity).slice(0,10) });
-}));
-
-app.use('/api', (req, res) => res.status(404).json({ error: 'Không tìm thấy API' }));
-app.use((err, req, res, next) => { console.error(err); res.status(err.status || (err.code === 11000 ? 409 : err.name === 'ValidationError' || err.name === 'CastError' ? 400 : 500)).json({ error: err.code === 11000 ? 'Mã SKU đã tồn tại' : err.status ? err.message : err.name === 'ValidationError' ? err.message : 'Thao tác thất bại. Kiểm tra kết nối MongoDB và cấu hình replica set.' }); });
-
-if (require.main === module) mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/quan_ly_ban_nhap?replicaSet=rs0&directConnection=true').then(() => { console.log('Đã kết nối MongoDB'); server.listen(process.env.PORT || 3000, () => console.log(`Mở http://localhost:${process.env.PORT || 3000}`)); }).catch(e => { console.error('Không thể kết nối MongoDB:', e.message); process.exit(1); });
-module.exports = { app, server, Product, Partner, Order, Movement, Bundle, BundleSale };
