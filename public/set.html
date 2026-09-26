@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Gói một set · KhoFlow</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/set.css">
+</head>
+
+<body class="mobile-focus">
+    <aside class="sidebar">
+        <div class="brand"><span class="brand-icon">K</span><span><strong>KhoFlow</strong><small>QUẢN LÝ KINH
+                    DOANH</small></span></div>
+        <p class="nav-label">KHÔNG GIAN LÀM VIỆC</p>
+        <nav><a class="nav-link" href="/"><span>▦</span> Tổng quan</a><a class="nav-link"
+                href="/candies.html"><span>▤</span> Nhập bánh kẹo</a><a class="nav-link active"
+                href="/set.html"><span>▧</span> Gói một set</a><a class="nav-link" href="/sets.html"><span>▦</span> Tất
+                cả set</a><a class="nav-link" href="/checkout.html"><span>◫</span> Giỏ hàng / Thanh toán</a><a
+                class="nav-link" href="/sales-history.html"><span>◷</span> Lịch sử bán</a></nav>
+        <div class="sidebar-bottom"><span class="status-dot"></span> Giá được tính từ giá nhập hiện tại</div>
+    </aside>
+    <main class="main">
+        <header class="topbar">
+            <div><span class="eyebrow">BÁN HÀNG THEO SET</span>
+                <h1>Gói một set bánh kẹo</h1>
+            </div>
+            <div class="top-actions"><span id="connection" class="connection">Đang kết nối…</span>
+                <div class="avatar">QL</div>
+            </div>
+        </header>
+        <section class="content">
+            <div class="heading">
+                <div>
+                    <h2>Chọn bánh kẹo cho một set</h2>
+                    <div class="muted">Bấm vào từng món để thêm vào set, sau đó chỉnh số lượng.</div>
+                </div><button id="clear" class="btn secondary">+ Tạo set mới</button>
+            </div>
+            <div class="set-layout">
+                <section class="set-catalog panel">
+                    <div class="panel-head">
+                        <h3>Danh sách bánh kẹo</h3><span id="productCount" class="muted"></span>
+                    </div>
+                    <div class="catalog-tools"><input id="findProduct" class="search"
+                            placeholder="Tìm tên bánh kẹo hoặc mã SKU..."></div>
+                    <div id="catalog" class="catalog-list"></div>
+                </section>
+                <section class="set-workspace">
+                    <div class="panel set-card">
+                        <div class="panel-head">
+                            <h3>Một set của bạn</h3><span id="itemCount" class="badge confirmed">0 món</span>
+                        </div>
+                        <div class="set-form">
+                            <div class="field"><label for="setName">Tên set</label><input id="setName"
+                                    placeholder="Ví dụ: Set ăn vặt 5 món"></div>
+                            <div class="field"><label for="setImage">Ảnh riêng của set (JPG, PNG hoặc
+                                    WebP)</label><input id="setImage" type="file"
+                                    accept="image/jpeg,image/png,image/webp"><img id="setImagePreview"
+                                    class="set-image-preview hidden" alt="Ảnh set đang chỉnh"></div>
+                            <div id="selected" class="selected-list"></div>
+                            <div class="detail-row"><span>Tiền bánh kẹo</span><strong id="goodsCost">0 ₫</strong></div>
+                            <div class="detail-row"><span>Tiền túi / hộp / tem cho 1 set</span><input id="packaging"
+                                    type="number" min="0" step="1" value="0" aria-label="Tiền bao bì"
+                                    class="money-input"></div>
+                            <div class="detail-row total-row"><span>GIÁ COST / GIÁ VỐN 1 SET</span><strong id="cost">0
+                                    ₫</strong></div>
+                            <div class="detail-row"><span>Giá bán 1 set</span><input id="selling" type="number" min="0"
+                                    step="1" value="0" aria-label="Giá bán một set" class="money-input"></div>
+                            <div class="profit">
+                                <div><small>LÃI DỰ KIẾN / 1 SET</small><strong id="profit">0 ₫</strong></div>
+                                <div><small>TỶ SUẤT LÃI TRÊN GIÁ BÁN</small><strong id="margin">0%</strong></div>
+                            </div>
+                            <div class="set-actions"><button id="save" class="btn">Lưu công thức set</button><span
+                                    id="capacity" class="muted"></span></div>
+                            <p class="help">Đây là phép tính giá vốn và lãi ước tính. Lưu công thức không trừ tồn kho;
+                                chỉ xác nhận đơn bán mới cập nhật kho.</p>
+                        </div>
+                    </div>
+                    <div class="panel saved">
+                        <div class="panel-head">
+                            <h3>Công thức đã lưu</h3><span id="savedCount" class="muted"></span>
+                        </div>
+                        <div id="savedList"></div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+    <div class="mobile-set-summary" id="mobileSummary">
+        <div><small><span id="mobileCount">0</span> loại · Giá vốn 1 set</small><strong id="mobileCost">0 ₫</strong>
+        </div><button id="jumpToSet" type="button">Xem set ↑</button>
+    </div>
+    <div id="toast" class="toast hidden"></div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/set-image.js"></script>
+    <script src="/set.js"></script>
+    <div class="mobile-tabs" aria-label="Điều hướng nhanh"><a href="/candies.html" data-tab="candies"><span>▤</span>Kho
+            bánh</a><a href="/set.html" data-tab="builder" class="active"><span>＋</span>Gói set</a><a href="/sets.html"
+            data-tab="sets"><span>▦</span>Các set</a><a href="/checkout.html" data-tab="cart"><span>◫</span>Giỏ
+            hàng</a><a href="/sales-history.html" data-tab="history"><span>◷</span>Lịch sử</a></div>
+</body>
+
+</html>

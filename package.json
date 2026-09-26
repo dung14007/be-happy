@@ -1,0 +1,10 @@
+{
+  "name": "quan-ly-ban-nhap-hang",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Web quản lý đơn nhập, đơn bán và tồn kho",
+  "main": "server.js",
+  "scripts": { "start": "node server.js", "dev": "node --watch server.js", "check": "node --check server.js && node --check receipt-view.js && node --check public/app.js && node --check public/set.js && node --check public/sets.js && node --check public/set-image.js && node --check public/candies.js && node --check public/stock-status.js && node --check public/cart.js && node --check public/cart-availability.js && node --check public/checkout.js && node --check public/history.js && node --check public/receipt.js", "test": "node --test test/*.test.js" },
+  "dependencies": { "dotenv": "^16.6.1", "express": "^4.21.2", "mongoose": "^8.18.0", "socket.io": "^4.8.1" },
+  "engines": { "node": ">=20" }
+}
