@@ -23,3 +23,1217 @@
 .reorder-notice{background:#fff2df;border:1px solid #f4cb89;color:#805117;border-radius:13px;padding:16px 19px;margin-bottom:18px;font-size:13px}.reorder-notice strong{display:block;font-size:15px}.reorder-notice ul{margin:8px 0 0;padding-left:20px;line-height:1.8}.custom-form{margin-top:12px;background:#f5faf7;border:1px solid #d4e9db;padding:14px;border-radius:10px}.custom-form label{display:block;font-size:12px;font-weight:700;margin:8px 0}.custom-form select,.custom-form input{width:100%;padding:10px;border:1px solid #d6e3e0;border-radius:8px;font-size:14px;background:white}.custom-form .btn{margin-top:12px}.custom-note{color:#647c70;font-size:11px;line-height:1.5}.set-card-buttons button{cursor:pointer}@media(max-width:700px){.custom-form select,.custom-form input{min-height:44px}}
 
 .bundle-photo{display:block;width:100%;height:190px;object-fit:cover;border-radius:10px;margin-bottom:14px;background:#edf4f0}.bundle-photo-empty{display:grid;place-items:center;width:100%;height:130px;border-radius:10px;margin-bottom:14px;background:#f2f7f3;color:#749183;font-size:12px}.set-image-preview{display:block;width:100%;max-height:230px;object-fit:contain;border-radius:10px;margin:10px 0;background:#f4f7f5}.set-image-preview.hidden{display:none}.quick-form>input[type=file],#setImage{display:block;max-width:100%;font-size:12px;margin-bottom:10px}@media(max-width:700px){.bundle-photo{height:170px}}
+
+/* === BeHappy professional UI refresh START === */
+.candy-stats,
+.set-stats {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.help {
+  max-width: 760px;
+  color: #70808a;
+}
+
+.bundle-grid {
+  gap: 18px;
+}
+
+.bundle-card {
+  padding: 22px;
+  border-radius: 8px;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+.bundle-card:hover {
+  transform: translateY(-2px);
+  border-color: #c9d8df;
+  box-shadow: 0 12px 30px rgba(18, 35, 49, .08);
+}
+
+.bundle-head h3 {
+  font-size: 18px;
+  letter-spacing: -.2px;
+}
+
+.bundle-price {
+  line-height: 1.65;
+}
+
+.ingredient-list {
+  border-color: var(--line-soft);
+}
+
+.ingredient {
+  padding: 11px 0;
+  color: var(--ink-soft);
+}
+
+.bundle-footer {
+  border-radius: 8px;
+  background: #f0faf6;
+  border: 1px solid #d7f0e6;
+}
+
+.bundle-footer.short {
+  background: #fff3f1;
+  border-color: #f5d1ce;
+}
+
+.empty-panel {
+  border-radius: 8px;
+  border-style: dashed;
+}
+
+.candy-card {
+  border-radius: 8px;
+}
+
+.candy-card-metrics {
+  border-radius: 8px;
+  background: #f4faf7;
+}
+
+.quick-create {
+  border-color: #c9eadf;
+  box-shadow: 0 10px 26px rgba(15, 159, 122, .06);
+}
+
+.quick-create .panel-head {
+  background: linear-gradient(180deg, #f8fffc, #f1fbf7);
+}
+
+.quick-form {
+  padding: 22px;
+}
+
+.quick-line select,
+.quick-line input,
+.custom-form select,
+.custom-form input {
+  min-height: 44px;
+  border-radius: 8px;
+  border-color: var(--line);
+}
+
+.quick-remove {
+  border-radius: 8px;
+}
+
+.quick-totals {
+  border-radius: 8px;
+  border: 1px solid #d2eee3;
+  background: #f0faf5;
+}
+
+.reorder-notice {
+  border-radius: 8px;
+  background: #fff8eb;
+}
+
+.custom-form {
+  border-radius: 8px;
+  background: #f7fbf9;
+}
+
+.bundle-photo,
+.bundle-photo-empty,
+.set-image-preview {
+  border-radius: 8px;
+  border: 1px solid var(--line-soft);
+}
+
+@media (max-width: 700px) {
+  .candy-stats,
+  .set-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bundle-card {
+    padding: 16px;
+  }
+
+  .quick-form {
+    padding: 16px;
+  }
+
+  .quick-price-inputs,
+  .quick-totals {
+    grid-template-columns: 1fr;
+  }
+}
+/* === BeHappy professional UI refresh END === */
+
+/* === BeHappy pink mobile-first refresh START === */
+.bundle-card:hover {
+  border-color: #f1cbd9;
+  box-shadow: 0 14px 34px rgba(158, 53, 101, .11);
+}
+
+.catalog-icon,
+.bundle-footer,
+.quick-totals,
+.candy-card-metrics {
+  background: #fff4f8;
+  border-color: #f5d4df;
+}
+
+.bundle-footer strong,
+.quick-totals strong,
+.candy-card-metrics strong {
+  color: var(--brand-strong);
+}
+
+.quick-create {
+  border-color: #f2cbd9;
+  box-shadow: 0 12px 30px rgba(232, 79, 138, .08);
+}
+
+.quick-create .panel-head {
+  background: linear-gradient(180deg, #fffafd, #fff4f8);
+}
+
+.quick-remove,
+.bundle-footer.short,
+.reorder-notice {
+  background: #fff1f5;
+  border-color: #f4ccd8;
+}
+
+.empty-panel a,
+.set-card-buttons a,
+.bundle-actions a {
+  color: var(--brand-strong);
+}
+
+@media (max-width: 700px) {
+  .candy-cards {
+    gap: 11px;
+  }
+
+  .candy-card {
+    padding: 16px;
+    background: linear-gradient(180deg, #fff, #fffafd);
+  }
+
+  .candy-card-title {
+    align-items: center;
+  }
+
+  .candy-card .btn {
+    background: #fff;
+    color: var(--brand-strong);
+    border-color: #f0ccd9;
+  }
+
+  .bundle-photo,
+  .bundle-photo-empty {
+    height: 156px;
+  }
+}
+/* === BeHappy pink mobile-first refresh END === */
+
+/* === BeHappy compact mobile cards START === */
+@media (max-width: 700px) {
+  .candy-cards,
+  .bundle-grid {
+    gap: 10px;
+  }
+
+  .bundle-card {
+    padding: 12px;
+  }
+
+  .bundle-photo,
+  .bundle-photo-empty {
+    height: 112px;
+    margin-bottom: 10px;
+  }
+
+  .bundle-head {
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .bundle-head h3 {
+    font-size: 16px;
+    line-height: 1.22;
+    margin-bottom: 4px;
+  }
+
+  .bundle-price {
+    font-size: 10px;
+    line-height: 1.45;
+  }
+
+  .bundle-price strong {
+    font-size: 12px;
+  }
+
+  .tag {
+    padding: 4px 8px;
+    font-size: 9px;
+  }
+
+  .ingredient-list {
+    max-height: 152px;
+    overflow: auto;
+    margin: 10px 0;
+    border-top-color: var(--line-soft);
+    overscroll-behavior: contain;
+  }
+
+  .ingredient {
+    gap: 8px;
+    padding: 7px 0;
+    font-size: 11px;
+  }
+
+  .ingredient span:first-child {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ingredient span:last-child {
+    font-size: 10px;
+  }
+
+  .bundle-footer {
+    gap: 4px;
+    padding: 9px 10px;
+    font-size: 10px;
+  }
+
+  .bundle-footer strong {
+    font-size: 10px;
+  }
+
+  .bundle-footer span {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .bundle-actions {
+    margin-top: 10px;
+    gap: 8px;
+    font-size: 9px;
+  }
+
+  .set-card-buttons {
+    gap: 6px;
+  }
+
+  .set-card-buttons .btn,
+  .set-card-buttons a {
+    min-height: 32px;
+    font-size: 10px;
+  }
+
+  .candy-card {
+    padding: 12px;
+  }
+
+  .candy-card-title {
+    gap: 8px;
+  }
+
+  .candy-card-title strong {
+    font-size: 14px;
+    line-height: 1.25;
+  }
+
+  .candy-card-title small {
+    font-size: 9px;
+  }
+
+  .candy-card-title .badge {
+    padding: 4px 8px;
+    font-size: 9px;
+  }
+
+  .candy-card-metrics {
+    margin: 9px 0;
+    padding: 10px;
+  }
+
+  .candy-card-metrics small {
+    font-size: 9px;
+  }
+
+  .candy-card-metrics strong {
+    font-size: 16px;
+    line-height: 1.18;
+  }
+
+  .candy-card-metrics > div + div {
+    padding-left: 10px;
+  }
+
+  .candy-card .btn {
+    min-height: 38px;
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 390px) {
+  .bundle-photo,
+  .bundle-photo-empty {
+    height: 100px;
+  }
+
+  .ingredient-list {
+    max-height: 132px;
+  }
+
+  .candy-card-metrics {
+    padding: 9px;
+  }
+}
+/* === BeHappy compact mobile cards END === */
+
+/* === BeHappy 3-column mobile management rows START === */
+@media (max-width: 700px) {
+  .candy-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(104px, .95fr) 92px;
+    gap: 8px;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .candy-card-title {
+    display: grid;
+    gap: 5px;
+    align-items: start;
+  }
+
+  .candy-card-title strong,
+  .candy-card-title small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .candy-card-title .badge {
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .candy-card-metrics {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+  }
+
+  .candy-card-metrics > div {
+    min-width: 0;
+    padding: 0;
+  }
+
+  .candy-card-metrics > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--line-soft);
+    padding: 5px 0 0;
+  }
+
+  .candy-card-metrics small {
+    line-height: 1.15;
+  }
+
+  .candy-card-metrics strong {
+    font-size: 15px;
+  }
+
+  .candy-card .btn {
+    width: 100%;
+    min-height: 54px;
+    padding: 6px 8px;
+    line-height: 1.2;
+    white-space: normal;
+  }
+
+  .bundle-card {
+    display: grid;
+    grid-template-columns: 86px minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: start;
+  }
+
+  .bundle-photo,
+  .bundle-photo-empty {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 86px;
+    height: 86px;
+    margin: 0;
+  }
+
+  .bundle-head {
+    grid-column: 2 / 4;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+    align-items: start;
+  }
+
+  .bundle-head h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .bundle-price {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .ingredient-list {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    max-height: none;
+    overflow: visible;
+    margin: 8px 0 0;
+    padding-top: 8px;
+  }
+
+  .ingredient {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+    padding: 7px;
+    border: 1px solid var(--line-soft);
+    border-radius: 8px;
+    background: #fffafd;
+    font-size: 10px;
+  }
+
+  .ingredient span:first-child,
+  .ingredient span:last-child {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ingredient span:last-child {
+    font-size: 9px;
+    color: var(--muted);
+  }
+
+  .bundle-footer {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
+
+  .bundle-actions {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+}
+
+@media (max-width: 390px) {
+  .candy-card {
+    grid-template-columns: minmax(0, 1fr) 92px 82px;
+    gap: 6px;
+  }
+
+  .bundle-card {
+    grid-template-columns: 76px minmax(0, 1fr) auto;
+  }
+
+  .bundle-photo,
+  .bundle-photo-empty {
+    width: 76px;
+    height: 76px;
+  }
+
+  .ingredient-list {
+    gap: 5px;
+  }
+
+  .ingredient {
+    padding: 6px 5px;
+  }
+}
+/* === BeHappy 3-column mobile management rows END === */
+
+/* === BeHappy mobile 3 products per row START === */
+@media (max-width: 700px) {
+  .candy-cards,
+  .bundle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .candy-card,
+  .bundle-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 8px;
+    gap: 6px;
+  }
+
+  .candy-card-title,
+  .bundle-head {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .candy-card-title strong,
+  .bundle-head h3 {
+    font-size: 12px;
+    line-height: 1.2;
+    min-height: 29px;
+    margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+  }
+
+  .candy-card-title small,
+  .bundle-price {
+    font-size: 9px;
+    line-height: 1.25;
+  }
+
+  .candy-card-title .badge,
+  .tag {
+    width: max-content;
+    max-width: 100%;
+    padding: 3px 6px;
+    font-size: 8px;
+    line-height: 1.25;
+  }
+
+  .candy-card-metrics {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    margin: 0;
+    padding: 6px;
+    background: #fff4f8;
+    border: 1px solid var(--line-soft);
+    border-radius: 8px;
+  }
+
+  .candy-card-metrics > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--line-soft);
+    padding: 4px 0 0;
+  }
+
+  .candy-card-metrics small {
+    font-size: 8px;
+    line-height: 1.1;
+  }
+
+  .candy-card-metrics strong {
+    font-size: 14px;
+    line-height: 1.1;
+  }
+
+  .candy-card .btn {
+    width: 100%;
+    min-height: 32px;
+    padding: 6px;
+    font-size: 0;
+  }
+
+  .candy-card .btn::after {
+    content: "Sửa";
+    font-size: 10px;
+    font-weight: 800;
+  }
+
+  .bundle-photo,
+  .bundle-photo-empty {
+    order: -1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / .72;
+    margin: 0;
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .bundle-head {
+    grid-column: auto;
+  }
+
+  .bundle-price {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .bundle-price strong {
+    font-size: 10px;
+  }
+
+  .ingredient-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3px;
+    max-height: 78px;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+    border-top: 0;
+  }
+
+  .ingredient {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 3px 0;
+    border: 0;
+    border-bottom: 1px solid var(--line-soft);
+    border-radius: 0;
+    background: transparent;
+    font-size: 9px;
+  }
+
+  .ingredient span:first-child,
+  .ingredient span:last-child {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ingredient span:last-child {
+    max-width: 44%;
+    font-size: 8px;
+  }
+
+  .bundle-footer {
+    padding: 6px;
+    gap: 2px;
+    font-size: 8px;
+    grid-column: auto;
+  }
+
+  .bundle-footer strong {
+    font-size: 8px;
+  }
+
+  .bundle-footer span {
+    display: none;
+  }
+
+  .bundle-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: auto;
+    gap: 5px;
+    grid-column: auto;
+    font-size: 8px;
+  }
+
+  .bundle-actions > span {
+    display: none;
+  }
+
+  .set-card-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .set-card-buttons a,
+  .set-card-buttons .btn {
+    width: 100%;
+    min-height: 28px;
+    padding: 5px;
+    font-size: 9px;
+    text-align: center;
+  }
+
+  .set-card-buttons .btn.secondary {
+    display: none;
+  }
+
+  .custom-form {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 390px) {
+  .candy-cards,
+  .bundle-grid {
+    gap: 6px;
+  }
+
+  .candy-card,
+  .bundle-card {
+    padding: 7px;
+  }
+
+  .candy-card-metrics strong {
+    font-size: 13px;
+  }
+
+  .set-card-buttons a,
+  .set-card-buttons .btn {
+    font-size: 8px;
+  }
+}
+/* === BeHappy mobile 3 products per row END === */
+
+/* === BeHappy polished 3-card mobile grid START === */
+@media (max-width: 700px) {
+  .bundle-grid,
+  .candy-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    align-items: start;
+  }
+
+  .bundle-card,
+  .candy-card {
+    padding: 7px;
+    border-radius: 9px;
+    gap: 6px;
+    background: #fff;
+    box-shadow: 0 6px 16px rgba(158, 53, 101, .08);
+  }
+
+  .bundle-photo,
+  .bundle-photo-empty {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / .78;
+    border-radius: 7px;
+    object-fit: cover;
+    margin: 0;
+    border-color: #f2d8e3;
+  }
+
+  .bundle-head {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .bundle-head h3,
+  .candy-card-title strong {
+    min-height: auto;
+    font-size: 12px;
+    line-height: 1.18;
+    letter-spacing: 0;
+    color: #251523;
+    -webkit-line-clamp: 2;
+  }
+
+  .bundle-price {
+    white-space: normal;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+    font-size: 0;
+    line-height: 1.25;
+  }
+
+  .bundle-price strong {
+    display: inline;
+    font-size: 10px;
+    color: var(--brand-strong);
+  }
+
+  .bundle-price {
+    font-size: 9px;
+    color: #8b7483;
+  }
+
+  .tag,
+  .candy-card-title .badge {
+    align-self: flex-start;
+    padding: 3px 6px;
+    border-radius: 999px;
+    font-size: 8px;
+    line-height: 1.15;
+  }
+
+  .ingredient-list {
+    max-height: 92px;
+    margin-top: 0;
+    padding: 2px 0 0;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .ingredient {
+    padding: 3px 0;
+    font-size: 8.5px;
+    line-height: 1.2;
+  }
+
+  .ingredient:nth-child(n+5) {
+    display: none;
+  }
+
+  .ingredient span:first-child {
+    max-width: 58%;
+  }
+
+  .ingredient span:last-child {
+    max-width: 40%;
+  }
+
+  .bundle-footer {
+    min-height: 34px;
+    padding: 6px;
+    border-radius: 7px;
+  }
+
+  .bundle-footer strong {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 8.5px;
+    line-height: 1.25;
+  }
+
+  .bundle-actions {
+    margin-top: 0;
+    gap: 5px;
+  }
+
+  .set-card-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    align-items: stretch;
+  }
+
+  .set-card-buttons a,
+  .set-card-buttons .btn {
+    min-height: 30px;
+    padding: 5px 4px;
+    border-radius: 7px;
+    font-size: 8.5px;
+    line-height: 1.15;
+    white-space: normal;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .set-card-buttons a {
+    border: 1px solid #f0ccd9;
+    background: #fff;
+    color: var(--brand-strong);
+  }
+
+  .set-card-buttons .btn.secondary {
+    display: none;
+  }
+
+  .set-card-buttons .btn:not(.secondary) {
+    background: var(--brand);
+    color: #fff;
+    border-color: var(--brand);
+  }
+
+  .candy-card-title {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .candy-card-title small {
+    font-size: 8px;
+    line-height: 1.1;
+  }
+
+  .candy-card-metrics {
+    padding: 6px;
+    gap: 5px;
+    border-radius: 7px;
+  }
+
+  .candy-card-metrics strong {
+    font-size: 13px;
+  }
+
+  .candy-card-metrics small {
+    font-size: 7.5px;
+  }
+
+  .candy-card .btn {
+    min-height: 30px;
+    border-radius: 7px;
+  }
+}
+
+@media (max-width: 360px) {
+  .bundle-grid,
+  .candy-cards {
+    gap: 6px;
+  }
+
+  .bundle-card,
+  .candy-card {
+    padding: 6px;
+  }
+
+  .set-card-buttons {
+    gap: 4px;
+  }
+
+  .set-card-buttons a,
+  .set-card-buttons .btn {
+    font-size: 8px;
+  }
+}
+/* === BeHappy polished 3-card mobile grid END === */
+
+/* === BeHappy refined compact set cards START === */
+@media (max-width: 700px) {
+  .bundle-card {
+    padding: 6px;
+    gap: 5px;
+  }
+
+  .bundle-photo,
+  .bundle-photo-empty {
+    aspect-ratio: 1 / .72;
+  }
+
+  .bundle-head {
+    gap: 4px;
+  }
+
+  .bundle-head h3 {
+    font-size: 12px;
+    line-height: 1.15;
+  }
+
+  .bundle-price {
+    display: block;
+    white-space: normal;
+    font-size: 0;
+    line-height: 1;
+  }
+
+  .bundle-price strong {
+    font-size: 10px;
+    line-height: 1.15;
+  }
+
+  .bundle-price strong:nth-of-type(1)::before {
+    content: "Bán ";
+    color: #927b89;
+    font-weight: 700;
+  }
+
+  .bundle-price strong:nth-of-type(1)::after {
+    content: "";
+    display: block;
+    height: 1px;
+  }
+
+  .bundle-price strong:nth-of-type(2)::before {
+    content: "Cost ";
+    color: #927b89;
+    font-weight: 700;
+  }
+
+  .bundle-price strong:nth-of-type(2)::after {
+    content: "";
+    display: block;
+    height: 1px;
+  }
+
+  .bundle-price strong:nth-of-type(3)::before {
+    content: "Lãi ";
+    color: #927b89;
+    font-weight: 700;
+  }
+
+  .tag {
+    padding: 3px 6px;
+    font-size: 8px;
+  }
+
+  .ingredient-list {
+    display: block;
+    max-height: 112px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 2px;
+    border-top: 1px solid var(--line-soft);
+    scrollbar-width: thin;
+  }
+
+  .ingredient-list::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .ingredient-list::-webkit-scrollbar-thumb {
+    background: #f0c5d6;
+    border-radius: 999px;
+  }
+
+  .ingredient:nth-child(n+5) {
+    display: flex;
+  }
+
+  .ingredient {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 19px;
+    padding: 3px 0;
+    font-size: 8px;
+    line-height: 1.15;
+  }
+
+  .ingredient span:first-child {
+    max-width: 52%;
+  }
+
+  .ingredient span:last-child {
+    max-width: 46%;
+    font-size: 7.5px;
+  }
+
+  .bundle-footer {
+    min-height: 32px;
+    padding: 5px 6px;
+  }
+
+  .bundle-footer strong {
+    font-size: 8px;
+  }
+
+  .set-card-buttons {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .set-card-buttons a,
+  .set-card-buttons .btn {
+    min-height: 29px;
+    padding: 5px 3px;
+  }
+}
+/* === BeHappy refined compact set cards END === */
+
+/* === BeHappy set price three columns START === */
+@media (max-width: 700px) {
+  .bundle-price {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3px;
+    align-items: stretch;
+    font-size: 0;
+    line-height: 1;
+  }
+
+  .bundle-price strong {
+    display: grid;
+    gap: 1px;
+    min-width: 0;
+    padding: 4px 3px;
+    border-radius: 6px;
+    background: #fff4f8;
+    color: var(--brand-strong);
+    font-size: 9px;
+    line-height: 1.1;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .bundle-price strong::before {
+    display: block;
+    color: #927b89;
+    font-size: 7px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .bundle-price strong:nth-of-type(1)::before {
+    content: "Bán";
+  }
+
+  .bundle-price strong:nth-of-type(1)::after,
+  .bundle-price strong:nth-of-type(2)::after {
+    content: none;
+    display: none;
+  }
+
+  .bundle-price strong:nth-of-type(2)::before {
+    content: "Cost";
+  }
+
+  .bundle-price strong:nth-of-type(3)::before {
+    content: "Lãi";
+  }
+}
+/* === BeHappy set price three columns END === */
+
+/* === BeHappy low stock highlight START === */
+.badge.low,
+.tag.short {
+  background: #fff1d6 !important;
+  color: #9a4b00 !important;
+  border: 1px solid #ffd28a;
+}
+
+tr:has(.badge.low) td {
+  background: #fffaf0;
+}
+
+tr:has(.badge.low):hover td {
+  background: #fff4dd;
+}
+
+.candy-card:has(.badge.low) {
+  border-color: #ffd28a;
+  background: linear-gradient(180deg, #fff, #fffaf0);
+}
+
+.candy-card:has(.badge.low) .candy-card-metrics {
+  background: #fff7e8;
+  border-color: #ffdca3;
+}
+
+.bundle-card:has(.tag.short) {
+  border-color: #ffd28a;
+  background: linear-gradient(180deg, #fff, #fffaf0);
+}
+
+.bundle-card:has(.tag.short) .bundle-footer.short {
+  background: #fff1d6;
+  border-color: #ffd28a;
+}
+
+.bundle-card:has(.tag.short) .bundle-footer.short strong {
+  color: #9a4b00;
+}
+/* === BeHappy low stock highlight END === */
