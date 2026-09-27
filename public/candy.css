@@ -1237,3 +1237,13 @@ tr:has(.badge.low):hover td {
   color: #9a4b00;
 }
 /* === BeHappy low stock highlight END === */
+
+/* === BeHappy product images START === */
+.candy-table-product { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.candy-thumb, .candy-card-image, .catalog-thumb { flex: none; width: 46px; height: 46px; border-radius: 8px; object-fit: cover; border: 1px solid var(--line-soft, #f6e8ef); background: #fff4f8; }
+.candy-thumb-empty { display: grid; place-items: center; color: var(--brand-strong, #c72d6a); font-size: 18px; }
+.candy-card-image { width: 100%; height: auto; aspect-ratio: 1 / .78; }
+.candy-image-preview { display: block; width: min(100%, 220px); max-height: 150px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line-soft, #f6e8ef); margin-top: 8px; }
+.candy-image-preview.hidden { display: none; }
+@media (max-width: 700px) { .candy-card-image { order: -1; } .candy-thumb, .catalog-thumb { width: 42px; height: 42px; } }
+/* === BeHappy product images END === */

@@ -215,3 +215,7 @@
   }
 }
 /* === BeHappy set image preview sizing END === */
+
+/* === BeHappy catalog product images START === */
+.catalog-thumb { flex: none; width: 40px; height: 40px; border-radius: 8px; object-fit: cover; border: 1px solid var(--line-soft, #f6e8ef); background: #fff4f8; }
+/* === BeHappy catalog product images END === */
