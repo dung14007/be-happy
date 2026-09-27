@@ -1039,3 +1039,101 @@ body:has(.modal:not(.hidden)) {
   }
 }
 /* === BeHappy modal interaction lock END === */
+
+/* === BeHappy mobile no zoom fixed viewport START === */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  touch-action: manipulation;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+@supports not (overflow-x: clip) {
+  body {
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 700px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .mobile-focus,
+  .mobile-focus .main,
+  .mobile-focus .topbar,
+  .mobile-focus .content {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    left: 0;
+    right: 0;
+  }
+
+  .content {
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+  }
+
+  .heading,
+  .toolbar,
+  .stats,
+  .card,
+  .panel,
+  .reorder-notice,
+  .candy-cards,
+  .bundle-grid,
+  .checkout-layout,
+  .set-layout,
+  .set-workspace,
+  .quick-create {
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats .card {
+    min-width: 0;
+  }
+
+  .stats .card:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .mobile-tabs {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .mobile-tabs a {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  img,
+  video,
+  canvas,
+  svg {
+    max-width: 100%;
+  }
+}
+/* === BeHappy mobile no zoom fixed viewport END === */
